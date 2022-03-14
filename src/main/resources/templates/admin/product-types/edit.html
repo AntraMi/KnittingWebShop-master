@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head th:replace="/fragments/head"></head>
+<body>
+
+    <nav th:replace="/fragments/nav :: nav-admin"></nav>
+
+    <div class="container-fluid">
+
+            <h1 class="display-2" th:text="'Edit ' + ( ${productTypeName} ?: ${productType.name} )"></h1>
+            <a href="/admin/product-types" class="btn btn-primary mb-5">Back to Product Types</a>
+        <div th:if="${message}" th:text="${message}" th:class="${'alert' + alertClass}"></div>
+
+            <form method="post" th:object="${productType}" th:action="@{/admin/product-types/edit}">
+
+                <div th:if="${#fields.hasErrors('*')}" class="alert alert-danger">
+                    There are errors</div>
+
+                <div class="form-group">
+                    <label for="">Name</label>
+                    <input type="text" class="form-control" th:field="*{name}" placeholder="Name">
+                    <span class="error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+                </div>
+
+                <input type="hidden" th:field="*{id}" th:value="${productType.id}">
+                <input type="hidden" th:field="*{sorting}" th:value="${productType.sorting}">
+
+                <button class="btn btn-danger">Edit</button>
+            </form>
+    </div>
+
+    <div th:replace="/fragments/footer.html"></div>
+</body>
+</html>

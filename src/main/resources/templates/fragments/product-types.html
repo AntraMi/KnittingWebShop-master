@@ -1,0 +1,13 @@
+<div class="col-3" th:fragment="product-types">
+    <h4 class="display-4">Product types</h4>
+    <ul class="list-group">
+        <li class="list-group-item" style="background-color: darkgrey" >
+            <a href="/product-type/all" class="nav-link" style="color: black">All Products</a>
+        </li>
+        <li class="list-group-item" style="background-color: darkgrey" th:each="productType: ${cproductTypes}">
+            <a class="nav-link" style="color: black" th:href="@{'/product-types/' + ${productType.slug}}" th:text="${productType.name}"></a>
+        </li>
+    </ul>
+
+    <div th:replace="/fragments/cart-partial"></div>
+</div>

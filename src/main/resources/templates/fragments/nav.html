@@ -1,0 +1,56 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light" th:fragment="nav-front">
+        <a class="navbar-brand" href="/">Knitting Shop</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExampleDefault"
+                aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item active" th:each="page: ${cpages}" th:if="${page.slug != 'home'}">
+                    <a class="nav-link" th:href="@{'/' + ${page.slug}}" th:text="${page.title}"></a>
+                </li>
+                    </ul>
+            <ul class="float-right navbar-nav p-3" th:if="${principal == null}">
+                <li class="nav-item active">
+                    <a th:href="@{/register}" class="nav-link">Register</a>
+                </li>
+                <li  class="nav-item active">
+                    <a th:href="@{/login}" class="nav-link">Login</a>
+                </li>
+            </ul>
+
+            <form th:if="${principal != null}" method="post" th:action="@{/logout}">
+                <span  th:text="${'Hi, ' + principal}"></span>
+                <button class="btn btn-secondary">Logout</button>
+            </form>
+        </div>
+</nav>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light" th:fragment="nav-admin">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/" target="_blank">Knitting Shop</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExampleDefault"
+                aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item ">
+                    <a class="nav-link active" aria-current="page" href="/admin/pages">Pages</a>
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link active" aria-current="productTypes" href="/admin/product-types">Product Types</a>
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link active" aria-current="products" href="/admin/products">Products</a>
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link active" aria-current="products" href="/admin/yarns">Yarns</a>
+                </li>
+            </ul>
+
+        </div>
+    </div>
+</nav>

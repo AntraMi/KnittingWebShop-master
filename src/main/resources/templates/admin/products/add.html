@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head th:replace="/fragments/head"></head>
+<body>
+
+    <nav th:replace="/fragments/nav :: nav-admin"></nav>
+
+    <div class="container-fluid">
+
+            <h1 class="display-2">Add a product</h1>
+            <a href="/admin/products" class="btn btn-primary mb-5">Back to products</a>
+        <div th:if="${message}" th:text="${message}" th:class="${'alert' + alertClass}"></div>
+
+            <form method="post" enctype="multipart/form-data" th:object="${product}" th:action="@{/admin/products/add}">
+
+                <div th:if="${#fields.hasErrors('*')}" class="alert alert-danger">There are errors</div>
+
+                <div class="form-group">
+                    <label for="">Product name</label>
+                    <input type="text" class="form-control" th:field="*{name}" placeholder="Name">
+                    <span class="error" style="color: red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="">Description</label>
+                    <textarea class="form-control" th:field="*{description}" rows="10" placeholder="Description"></textarea>
+                    <span class="error" style="color: red" th:if="${#fields.hasErrors('*')}" th:errors="*{description}"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="">Image:</label>
+                    <input type="file" class="form-control" th:name="image" th:type="url" th:id="image">
+                    <img class="mt-2" src="#" alt="" id="imgPreview1">
+                </div>
+
+                <div class="form-group">
+                    <label for="">Price</label>
+                    <input type="text" class="form-control p-1 mb-3" th:field="*{price}" placeholder="20 or 20.99">
+                    <span class="error" style="color: red" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></span>
+                </div>
+
+                <div class="form-group p-1 mb-3">
+                    <label for="">Product Type:</label>
+                    <select th:field="*{productTypeId}" class="form-control mb-3">
+                        <option th:value="0">Choose a product type</option>
+                        <option th:each="productType: ${productTypes}" th:value="${productType.id}" th:text="${productType.name}"></option>
+                    </select>
+                    <span class="error" style="color: red" th:if="${#fields.hasErrors('productTypeId')}"
+                          th:errors="*{productTypeId}"></span>
+                </div>
+
+
+                <button class="btn btn-danger">Add</button>
+            </form>
+    </div>
+    <div th:replace="/fragments/footer.html"></div>
+
+    <script>
+
+        $(function () {
+
+            $("#file").change(function () {
+                readURL(this, '1');
+            });
+
+        });
+
+    </script>
+
+</body>
+</html>

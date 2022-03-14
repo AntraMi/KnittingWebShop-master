@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head th:replace="/fragments/head.html"></head>
+<body>
+
+<nav th:replace="/fragments/nav :: nav-admin"></nav>
+
+<div class="container-fluid">
+
+    <h1 class="display-2">Yarns</h1>
+    <a href="/admin/yarns/add" class="btn btn-primary mb-5">Add new</a>
+
+    <div th:if="${message}" th:text="${message}" th:class="${'alert ' + alertClass}"></div>
+
+    <div th:if="${!yarns.isEmpty}">
+
+        <table class="table">
+            <tr>
+                <th>Name</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+            <tr th:each="yarn: ${yarns}">
+                <td th:text="${yarn.name}"></td>
+
+                <td><a th:href="@{'/admin/yarns/edit/' + ${yarn.id}}">Edit</a></td>
+                <td><a th:href="@{'/admin/yarns/delete/' + ${yarn.id}}"
+                       class="confirmDeletion">Delete</a></td>
+            </tr>
+        </table>
+    </div>
+
+    <div th:unless="${!yarns.isEmpty}">
+        <h4 class="display-4">There are no yarns at the moment</h4>
+    </div>
+</div>
+
+<div th:replace="/fragments/footer.html"></div>
+</body>
+</html>
